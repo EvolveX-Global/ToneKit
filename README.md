@@ -20,6 +20,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 This project now includes a simple navigation bar and styled components to give the interface a polished SaaS look. Feel free to customize the Tailwind CSS classes in `components/Navbar.tsx` and `components/SkinToneAnalyzer.tsx` to match your brand.
 
+## Pro Features
+
+The analyzer supports downloading palettes in multiple formats. JSON export is available on the free plan while PNG and PDF exports are restricted to Pro users. Manage your plan from the **Dashboard** page and explore pricing on the **Pricing** page.
+
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

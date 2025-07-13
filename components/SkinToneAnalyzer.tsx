@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { usePro } from "../src/context/ProContext";
 import UploadImage from "./UploadImage";
 
 interface RGB {
@@ -87,6 +88,7 @@ export default function SkinToneAnalyzer() {
   const [palette, setPalette] = useState<RGB[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
   const [actions, setActions] = useState<string[]>([]);
+  const { isPro } = usePro();
 
   function handleImageChange(file: File, url: string) {
     setPreview(url);
@@ -126,6 +128,48 @@ export default function SkinToneAnalyzer() {
     setPalette([]);
     setPreview(null);
     setActions((a) => [...a, "reset"]);
+  }
+
+  function downloadJSON() {
+    const data = JSON.stringify(palette.map(rgbToHex), null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'palette.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function downloadPNG() {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size * palette.length;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    palette.forEach((c, i) => {
+      ctx.fillStyle = rgbToHex(c);
+      ctx.fillRect(i * size, 0, size, size);
+    });
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'palette.png';
+    a.click();
+  }
+
+  function downloadPDF() {
+    const win = window.open('', '_blank');
+    if (!win) return;
+    win.document.write('<html><head><title>Palette</title></head><body>');
+    palette.forEach((c) => {
+      win.document.write(`<div style="width:50px;height:50px;background:${rgbToHex(c)};display:inline-block"></div>`);
+    });
+    win.document.write('</body></html>');
+    win.document.close();
+    win.focus();
+    win.print();
   }
 
   return (
@@ -179,6 +223,23 @@ export default function SkinToneAnalyzer() {
               </li>
             ))}
           </ul>
+        </div>
+      )}
+      {palette.length > 0 && (
+        <div className="flex gap-2">
+          <button className="px-3 py-1 border rounded" onClick={downloadJSON}>
+            Download JSON
+          </button>
+          {isPro && (
+            <>
+              <button className="px-3 py-1 border rounded" onClick={downloadPNG}>
+                Download PNG
+              </button>
+              <button className="px-3 py-1 border rounded" onClick={downloadPDF}>
+                Download PDF
+              </button>
+            </>
+          )}
         </div>
       )}
       {(preview || palette.length) && (
