@@ -129,10 +129,10 @@ export default function SkinToneAnalyzer() {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-xl">
+    <div className="flex flex-col gap-4 w-full max-w-xl bg-white p-6 rounded-lg shadow">
       <UploadImage onImageChange={handleImageChange} onError={handleError} />
       {preview && (
-        <img src={preview} alt="preview" className="max-w-full h-auto" />
+        <img src={preview} alt="preview" className="max-w-full h-auto rounded-md shadow" />
       )}
       {palette.length > 0 && (
         <div className="flex flex-col gap-2">
