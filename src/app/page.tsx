@@ -1,5 +1,6 @@
 'use client';
 import SkinToneAnalyzer from '../../components/SkinToneAnalyzer';
+import PremiumPalettePacks from '../../components/PremiumPalettePacks';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         Upload an image and instantly get a color palette with suggestions for your design projects.
       </p>
       <SkinToneAnalyzer />
+      <PremiumPalettePacks />
     </section>
   );
 }

@@ -9,8 +9,8 @@ export default function Navbar() {
         </Link>
         <div className="flex gap-4 text-sm">
           <Link href="#features" className="hover:underline">Features</Link>
-          <Link href="#pricing" className="hover:underline">Pricing</Link>
-          <Link href="#login" className="hover:underline">Login</Link>
+          <Link href="/pricing" className="hover:underline">Pricing</Link>
+          <Link href="/dashboard" className="hover:underline">Dashboard</Link>
         </div>
       </nav>
     </header>

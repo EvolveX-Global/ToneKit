@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "../../components/Navbar";
+import { ProProvider } from "../context/ProContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,11 +25,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex-1`}
-      >
-        <Navbar />
-        <main className="px-4">{children}</main>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex-1`}>
+        <ProProvider>
+          <Navbar />
+          <main className="px-4">{children}</main>
+        </ProProvider>
       </body>
     </html>
   );
